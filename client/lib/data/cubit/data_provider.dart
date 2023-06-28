@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 class DataProvider {
   final client = http.Client();
 
-  static Future<Map<String, dynamic>> fetchAllCourses() async {
+  static Future<List<Map<String, dynamic>>> fetchAllCourses() async {
     const url = 'https:localhost:8080/courses';
     try {
       final response = await http.get(Uri.parse(url));
-      return response.body as Map<String, dynamic>;
+      return response.body as List<Map<String, dynamic>>;
     } catch (e) {
       debugPrint("Error: $e");
       throw Exception('Failed to load courses.');
