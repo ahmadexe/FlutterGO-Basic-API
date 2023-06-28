@@ -81,22 +81,24 @@ func updateCourse(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	e := json.NewEncoder(w)
 
-	var c Course
-	err := json.NewDecoder(r.Body).Decode(&c)
+	var crs Course
+	err := json.NewDecoder(r.Body).Decode(&crs)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	if c.IsEmpty() {
+	if crs.IsEmpty() {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	params := mux.Vars(r)
 	for i, c := range courseDB {
 		if c.Id == params["id"] {
-			courseDB[i] = c
+			courseDB = append(courseDB[:i], courseDB[i+1:]...)
+			json.NewDecoder(r.Body).Decode(&crs)
+			courseDB = append(courseDB, crs)
 			w.WriteHeader(http.StatusCreated)
-			e.Encode(c)
+			e.Encode(crs)
 			return
 		}
 	}
@@ -150,6 +152,7 @@ func main()  {
 	courseDB = append(courseDB, Course{Name: "Flutter", Price: 100, Id: "2", Author: &Author{Name: "Another Ahmad", Github: "another_ahmadexe"}})
 	r.HandleFunc("/", serveHome)
 	r.HandleFunc("/courses", courses)
+	r.HandleFunc("/course", course)
 	r.HandleFunc("/courses/{id}", course)
 
 	log.Fatal(http.ListenAndServe(":8080", r))
