@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class DataProvider {
-  final client = http.Client();
+  static final _client = http.Client();
 
-  static Future<List<Map<String, dynamic>>> fetchAllCourses() async {
-    const url = 'https:localhost:8080/courses';
+  static fetchAllCourses() async {
+    const url = 'http://localhost:8080/courses';
     try {
-      final response = await http.get(Uri.parse(url));
-      return response.body as List<Map<String, dynamic>>;
+      final raw = await _client.get(Uri.parse(url));
+      final response = json.decode(raw.body);
+      return response;
     } catch (e) {
       debugPrint("Error: $e");
       throw Exception('Failed to load courses.');

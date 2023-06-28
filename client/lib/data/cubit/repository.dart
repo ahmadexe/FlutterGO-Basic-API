@@ -4,7 +4,8 @@ import 'package:client/models/course.dart';
 class Repository {
   Future<List<Course>> fetchAllCourses() async {
     final raw = await DataProvider.fetchAllCourses();
-    return raw.map((e) => Course.fromMap(e)).toList();
+    List<Course> c = List<Course>.from(raw.map((e) => Course.fromMap(e)));
+    return c;
   }
 
   Future<Course> fetchCourseById(String id) async {
