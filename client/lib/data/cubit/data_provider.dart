@@ -6,12 +6,16 @@ import 'package:http/http.dart' as http;
 class DataProvider {
   static final _client = http.Client();
 
-  static fetchAllCourses() async {
+  static Future<List<Map<String, dynamic>>> fetchAllCourses() async {
     const url = 'http://localhost:8080/courses';
     try {
       final raw = await _client.get(Uri.parse(url));
-      final response = json.decode(raw.body);
-      return response;
+      final response = jsonDecode(raw.body);
+      List<Map<String, dynamic>> data = [];
+      for (var item in response) {
+        data.add(item as Map<String, dynamic>);
+      }
+      return data;
     } catch (e) {
       debugPrint("Error: $e");
       throw Exception('Failed to load courses.');
