@@ -95,7 +95,6 @@ func updateCourse(w http.ResponseWriter, r *http.Request) {
 	for i, c := range courseDB {
 		if c.Id == params["id"] {
 			courseDB = append(courseDB[:i], courseDB[i+1:]...)
-			json.NewDecoder(r.Body).Decode(&crs)
 			courseDB = append(courseDB, crs)
 			w.WriteHeader(http.StatusCreated)
 			e.Encode(crs)
