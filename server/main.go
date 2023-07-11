@@ -10,14 +10,14 @@ import (
 )
 
 type Course struct {
-	Name string `json:"name"`
-	Price int `json:"price"`
-	Id string `json:"id"`
+	Name   string  `json:"name"`
+	Price  int     `json:"price"`
+	Id     string  `json:"id"`
 	Author *Author `json:"author"`
-} 
+}
 
 type Author struct {
-	Name string `json:"name"`
+	Name   string `json:"name"`
 	Github string `json:"github"`
 }
 
@@ -118,8 +118,6 @@ func deleteCourse(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 }
 
-
-
 func courses(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -144,8 +142,7 @@ func course(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
-func main()  {
+func main() {
 	fmt.Println("Starting server on port 8080...")
 	r := mux.NewRouter()
 	courseDB = append(courseDB, Course{Name: "Go", Price: 100, Id: "1", Author: &Author{Name: "Ahmad", Github: "ahmadexe"}})
