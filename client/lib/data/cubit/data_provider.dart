@@ -23,7 +23,7 @@ class DataProvider {
   }
 
   static Future<Map<String, dynamic>> fetchCourseById(String id) async {
-    final url = 'https:localhost:8080/courses/$id';
+    final url = 'http:localhost:8080/courses/$id';
     try {
       final response = await http.get(Uri.parse(url));
       return response.body as Map<String, dynamic>;
@@ -34,7 +34,7 @@ class DataProvider {
   }
 
   static Future<void> addCourse(Map<String, dynamic> course) async {
-    const url = 'https:localhost:8080/courses';
+    const url = 'http:localhost:8080/courses';
     try {
       final response = await http.post(Uri.parse(url), body: course);
       if (response.statusCode != 200) {
@@ -47,7 +47,7 @@ class DataProvider {
   }
 
   static Future<void> updateCourse(Map<String, dynamic> course) async {
-    final url = 'https:localhost:8080/courses/${course['id']}';
+    final url = 'http:localhost:8080/courses/${course['id']}';
     try {
       final response = await http.put(Uri.parse(url), body: course);
       if (response.statusCode != 200) {
@@ -60,7 +60,7 @@ class DataProvider {
   }
 
   static Future<void> deleteCourse(String id) async {
-    final url = 'https:localhost:8080/courses/$id';
+    final url = 'http:localhost:8080/courses/$id';
     try {
       final response = await http.delete(Uri.parse(url));
       if (response.statusCode != 200) {
