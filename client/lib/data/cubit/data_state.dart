@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'data_cubit.dart';
 
-@immutable
 class DataState extends Equatable {
   final List<Course>? courses;
   final String? message;

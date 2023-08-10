@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:client/data/cubit/repository.dart';
 import 'package:client/models/course.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+
 
 part 'data_state.dart';
 part 'states/fetch_all/_fetch_state.dart';

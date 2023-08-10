@@ -128,13 +128,13 @@ func courses(w http.ResponseWriter, r *http.Request) {
 
 func course(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	case "GET":
+	case http.MethodGet:
 		getCourse(w, r)
-	case "POST":
+	case http.MethodPost:
 		addCourse(w, r)
-	case "PUT":
+	case http.MethodPut:
 		updateCourse(w, r)
-	case "DELETE":
+	case http.MethodDelete:
 		deleteCourse(w, r)
 	default:
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -149,7 +149,7 @@ func main() {
 	r.HandleFunc("/", serveHome)
 	r.HandleFunc("/courses", courses)
 	r.HandleFunc("/course", course)
-	r.HandleFunc("/courses/{id}", course)
+	r.HandleFunc("/course/{id}", course)
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe("0.0.0.0:8080", r))
 }
